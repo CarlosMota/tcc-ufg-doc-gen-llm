@@ -1,0 +1,133 @@
+# ...existing code...
+
+# Sistema / OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.docstates
+*.iml
+
+# Node / JavaScript
+node_modules/
+npm-debug.log*
+yarn-error.log
+package-lock.json
+pnpm-lock.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pym
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+htmlcov/
+.coverage
+.coverage.*
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.env
+.env.*
+.venv/
+venv/
+ENV/
+env/
+venv.bak/
+pip-delete-this-directory.txt
+
+# .NET / Visual Studio
+bin/
+obj/
+**/bin/
+**/obj/
+*.dll
+*.pdb
+*.deps.json
+*.runtimeconfig.json
+*.nupkg
+packages/
+.nuget/
+staticwebassets/
+
+# Java / Gradle / Maven
+*.class
+*.jar
+*.war
+*.ear
+target/
+build/
+
+# Databases / storage (gerados)
+*.db
+*.sqlite
+*.sqlite3
+chatbot/message.db
+sad/message.db
+sad/vendas.db
+**/chroma_db/
+**/persist/
+**/vector_store/
+
+# Logs / runtime / temp
+*.log
+logs/
+*.pid
+*.seed
+*.pid.lock
+*.tmp
+*.bak
+*.swp
+*~
+
+# Build artifacts / compiled
+dist/
+*.egg
+*.so
+*.o
+*.obj
+*.a
+*.lib
+*.exe
+
+# Secrets / certificates / config
+*.pem
+*.key
+*.crt
+secrets.json
+*.env.local
+local.settings.json
+
+# CI / coverage / tooling
+.coverage
+coverage.xml
+.cache/
+*.prof
+
+# Misc
+.vagrant/
+*.DS_Store
+
+# Project-specific directories (ignore typical generated files)
+arquitetura/**/node_modules/
+arquitetura/**/.venv/
+chatbot/**/node_modules/
+chatbot/**/.venv/
+sad/**/node_modules/
+sad/**/.venv/
+tcc-doc-llm/**/node_modules/
+tcc-doc-llm/**/.venv/
+testes-apis/**/node_modules/
+testes-apis/**/.venv/
+
+# ...existing code...
