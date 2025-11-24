@@ -5,91 +5,100 @@
 - **WSL 2 (Ubuntu recomendado)**
 - **Visual Studio Code** instalado no Windows
 
+## Passo 1: Instalar o WSL (Subsistema do Windows para Linux)
 
-## 1. Extensões VSCode para o projeto
+1. Abra o PowerShell como Administrador:
+2. Busque por “PowerShell”, clique com o direito e vá em “Executar como administrador”.
 
-Instale estas extensões no VSCode antes de começar:
+Execute o comando:
 
-- Remote - WSL
-- Python (MS)
-- C\# Dev Kit ou .NET SDK Support
-- Node.js Extension Pack
-- Docker (se necessário para containers)
-- GitLens (para histórico de código)
+```bash
+wsl --install -d Ubuntu-22.04
+```
 
+Isso instala o WSL e o Ubuntu por padrão. Quando finalizar, reinicie o PC.
 
-## 2. Configuração do WSL
+3. Depois de Reiniciar verificar se foi instalado corretamente usando o seguinte comando:
+
+```bash
+wsl -l -v
+```
+
+---
+
+## Passo 2: Integração VS Code + WSL
+
+### 1. Instalação da extensão Remote Explorer
+
+Para editar arquivos e rodar códigos que estão dentro do Linux usando a interface do VS Code no Windows, siga estes passos:
+
+1. Abra o VS Code no Windows.
+2. Vá para a aba de Extensões (ou pressione Ctrl+Shift+X).
+3. Pesquise por "Remote Explorer".
+Instale a extensão oficial da Microsoft (geralmente a primeira da lista).
+
+### 2. Acesse a Aba Remote Explorer
+
+1. Na barra lateral esquerda do VS Code, clique no ícone Remote Explorer (parece um monitor com um sinal de `>_` ou um computadorzinho).
+2. No menu dropdown (no topo da aba que abriu), selecione WSL Targets.
+
+### 3 Conecte ao Ubuntu
+
+1. Você verá uma lista com as distros instaladas (ex: Ubuntu-22.04).
+2. Passe o mouse sobre Ubuntu-22.04 e clique no ícone de pasta com uma seta ("Connect to WSL in New Window").
+3. Uma nova janela do VS Code abrirá já conectada ao seu Linux.
+
+Dica: O Remote Explorer também mostra uma lista de Pastas Recentes que você abriu no WSL, facilitando voltar ao projeto no dia seguinte com um único clique.
+
+---
+
+## Passo 3: Preparar Ambiente Python para teste de RAG
 
 Abra o VSCode e conecte-se ao seu WSL (Ubuntu):
 
-1. Abra o VSCode, pressione `F1` e execute: `Remote-WSL: New Window`
-2. Atualize pacotes de sistema:
-
 ```bash
-sudo apt-get update
-sudo apt-get install -y ca-certificates
-sudo update-ca-certificates
+sudo apt update && sudo apt upgrade
 ```
 
+### Criar Ambiente com Micromamba (WSL)
 
-## 3. Instalação do micromamba
+#### 1. Instalação do micromamba
 
 ```bash
 curl micro.mamba.pm/install.sh | bash
 # Reinicie o terminal para habilitar 'micromamba'
 ```
 
-Criação do ambiente:
+#### 2. Criação do ambiente
 
 ```bash
 micromamba env create -f tcc_ufg.yml
 micromamba activate tcc-ufg
 ```
 
-Atualização:
+#### 3. Atualização
 
 ```bash
 micromamba self-update
 micromamba update --all -y
 ```
 
-Listar ambientes:
+#### 4. Listar ambientes
 
 ```bash
 micromamba env list
 ```
 
-
-## 4. Bibliotecas Python
-
-No ambiente:
-
-```bash
-python -m pip install --upgrade pip
-pip install groq openai python-dotenv
-micromamba install -y -c pytorch -c nvidia -c conda-forge pytorch pytorch-cuda=12.1
-```
-
-
-## 5. Instalação .NET
+### Instalação .NET
 
 ```bash
 sudo apt-get install -y dotnet-sdk-8.0
 dotnet restore
 ```
 
+## Passo 4: Baixar modelos LLMs locais
 
-## 6. Instalação Node.js
-
-```bash
-sudo apt-get install -y nodejs npm
-npm install
-```
-
-
-## 7. Ollama e LLMs Locais
-
-Instale Ollama:
+### 1. Instale Ollama:
 
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
@@ -97,7 +106,7 @@ sudo systemctl enable --now ollama
 systemctl status ollama
 ```
 
-Baixe e rode modelos:
+### 2. Baixe e rode modelos:
 
 ```bash
 ollama pull qwen2.5:1.5b-instruct
@@ -106,15 +115,23 @@ ollama pull deepseek-coder:6.7b-instruct-q4_K_M
 ollama run deepseek-coder:6.7b-instruct-q4_K_M
 ```
 
-
-## 8. Verifique placa de vídeo NVIDIA
+### 3. Execute o comando para verificar se os modelos foram baixados corretamente:
 
 ```bash
-nvidia-smi
+ollama list
 ```
 
+### 4. Teste os modelos
 
-## 9. Variáveis de ambiente
+```bash
+./run_models.sh "Explique RAG (Retrieval-Augmented Generation), com contexto para LLM (Large Language Model)"
+```
+
+Após isso verá que foi criada uma pasta chamada outputs com os arquivos de saída dos testes.
+
+---
+
+<!-- ## 9. Variáveis de ambiente
 
 Crie `.env`:
 
@@ -197,4 +214,4 @@ Estrutura resumida (exemplos de arquivos relevantes):
   - Adapters/OllamaChatAdapter.cs
   - Adapters/OllamaCompletionAdapter.cs
   - Retrieval/InMemoryRetrievalAdapter.cs
-  - Options/GroqOptions.cs
+  - Options/GroqOptions.cs -->

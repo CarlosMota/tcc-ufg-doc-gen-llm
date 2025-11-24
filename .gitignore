@@ -131,3 +131,4 @@ testes-apis/**/node_modules/
 testes-apis/**/.venv/
 
 # ...existing code...
+outputs/summary.csv
