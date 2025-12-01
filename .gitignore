@@ -132,3 +132,5 @@ testes-apis/**/.venv/
 
 # ...existing code...
 outputs/summary.csv
+RoslynIndexer/setup_comandos.txt
+RoslynIndexer/src/RoslynIndexer.Console/output_json/*
