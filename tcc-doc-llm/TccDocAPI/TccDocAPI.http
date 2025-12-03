@@ -1,6 +1,0 @@
-@TccDocAPI_HostAddress = http://localhost:5285
-
-GET {{TccDocAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

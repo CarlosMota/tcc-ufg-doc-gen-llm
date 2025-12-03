@@ -1,0 +1,12 @@
+{
+  "file_path": "DummyFile.cs",
+  "namespace": "SistemaFinanceiro.Domain",
+  "class_name": "CalculadoraImposto",
+  "method_name": "MetodoSemDoc",
+  "signature": "void MetodoSemDoc()",
+  "content_length": 92,
+  "content": "public void MetodoSemDoc() \n                { \n                    // ... \n                }",
+  "method_xml_docs": "",
+  "class_xml_docs": "Responsável pelos cálculos tributários do sistema.",
+  "full_context": "SistemaFinanceiro.Domain.CalculadoraImposto.MetodoSemDoc"
+}

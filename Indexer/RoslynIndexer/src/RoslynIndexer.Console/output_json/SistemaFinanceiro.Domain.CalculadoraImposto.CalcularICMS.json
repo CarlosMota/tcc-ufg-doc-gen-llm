@@ -1,0 +1,12 @@
+{
+  "file_path": "DummyFile.cs",
+  "namespace": "SistemaFinanceiro.Domain",
+  "class_name": "CalculadoraImposto",
+  "method_name": "CalcularICMS",
+  "signature": "decimal CalcularICMS(decimal valor, string estado)",
+  "content_length": 135,
+  "content": "public decimal CalcularICMS(decimal valor, string estado)\n                {\n                    return valor * 0.18m;\n                }",
+  "method_xml_docs": "Calcula o ICMS base.",
+  "class_xml_docs": "Responsável pelos cálculos tributários do sistema.",
+  "full_context": "SistemaFinanceiro.Domain.CalculadoraImposto.CalcularICMS"
+}
