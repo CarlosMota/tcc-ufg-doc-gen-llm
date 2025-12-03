@@ -39,6 +39,17 @@ micromamba update --all -y
 micromamba env list
 ```
 
+#### 5. (Opcional) Instalar pacotes via pip após ativar
+Se preferir instalar os pacotes pip manualmente (para acompanhar o progresso ou evitar travar na criação do ambiente):
+```bash
+pip install --no-cache-dir sentence-transformers google-generativeai
+```
+Se o download do `sentence-transformers` estiver lento, instale o PyTorch antes via conda (exemplo CPU):
+```bash
+micromamba install -n llm-apis-tests pytorch-cpu -c pytorch -c conda-forge
+pip install --no-cache-dir sentence-transformers google-generativeai
+```
+
 ### Instalação .NET (somente se for trabalhar no Indexer)
 
 ```bash

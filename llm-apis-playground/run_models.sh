@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Ativa o ambiente micromamba se disponível (opcional, mas recomendado)
+if command -v micromamba >/dev/null 2>&1; then
+  eval "$(micromamba shell hook -s bash)"
+  micromamba activate llm-apis-tests >/dev/null 2>&1 || true
+fi
+
 PROMPT=${1:-"Oi, tudo bem?"}
 FILTER=${2:-""}   # se não passar nada, fica vazio
 
