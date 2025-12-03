@@ -1,24 +1,23 @@
 # RoslynIndexer
 
-Guia rápido para o projeto em C# (.NET) de indexação/análise de código.
+Guia rápido do projeto em C# (.NET) para indexação/análise de código.
 
 ## Pré-requisitos
-- .NET SDK 8.0 instalado (verifique com `dotnet --version`).
-- Ambiente Python/micromamba não é necessário aqui; use apenas o SDK do .NET.
+- .NET SDK 8.0 instalado (`dotnet --version`).
+- Não requer micromamba/Python para esta parte.
 
-## Como restaurar e buildar
+## Setup rápido
 ```bash
 cd Indexer/RoslynIndexer
 dotnet restore
 dotnet build
 ```
 
-## Executar
-Se houver um console app na solução:
+## Executar o console
 ```bash
 dotnet run --project src/RoslynIndexer.Console/RoslynIndexer.Console.csproj
 ```
-Adapte o caminho do projeto se estiver usando outra entrypoint.
+Adapte o caminho se usar outro entrypoint.
 
 ## Testes
 ```bash
@@ -26,12 +25,14 @@ cd Indexer/RoslynIndexer
 dotnet test
 ```
 
-## Estrutura (essencial)
+## Estrutura
 - `RoslynIndexer.sln` — solução principal.
-- `src/` — projetos de produção (por exemplo, RoslynIndexer.Console, RoslynIndexer.Core).
+- `src/` — produção (RoslynIndexer.Console, RoslynIndexer.Core).
 - `tests/` — projetos de testes.
-- `old/` — artefatos antigos/legados (ignorados).
+- `old/` — artefatos legados (ignorados).
+
+## Saída de dados
+- JSONs do parser Roslyn: `data/01-parser/roslyn_output` (o app procura/gera a pasta `data` a partir do diretório atual). Ajuste no código se quiser outra etapa ou destino (ex.: `02-normalization`).
 
 ## Notas
-- Evite versionar pastas `bin/` e `obj/`; já estão ignoradas.
-- Se precisar de configurações adicionais (ex.: caminhos de entrada/saída, connection strings), documente-as aqui conforme os projetos forem sendo estabilizados.
+- Não versionar `bin/` e `obj/` (já ignorados).

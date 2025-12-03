@@ -46,7 +46,8 @@ class Program
         // --- LÓGICA DE SALVAMENTO ---
 
         // 1. Definir onde vamos salvar
-        var outputDirectory = Path.Combine(Directory.GetCurrentDirectory(), "output_json");
+        // Procura uma pasta "data" na árvore (raiz do repo) e usa um subdiretório dedicado à etapa 01-parser do Roslyn
+        var outputDirectory = Path.Combine(ResolveDataDirectory(), "01-parser", "roslyn_output");
 
         // 2. Garantir que a pasta existe (se não, cria)
         if (!Directory.Exists(outputDirectory))
@@ -80,5 +81,25 @@ class Program
 
         AnsiConsole.WriteLine();
         AnsiConsole.MarkupLine("[bold green]Processo finalizado com sucesso![/]");
+    }
+
+    static string ResolveDataDirectory()
+    {
+        var dir = Directory.GetCurrentDirectory();
+        while (!string.IsNullOrEmpty(dir))
+        {
+            var candidate = Path.Combine(dir, "data");
+            if (Directory.Exists(candidate))
+            {
+                return candidate;
+            }
+
+            dir = Directory.GetParent(dir)?.FullName;
+        }
+
+        // Fallback: cria um data/ local ao diretório de execução
+        var fallback = Path.Combine(Directory.GetCurrentDirectory(), "data");
+        Directory.CreateDirectory(fallback);
+        return fallback;
     }
 }
