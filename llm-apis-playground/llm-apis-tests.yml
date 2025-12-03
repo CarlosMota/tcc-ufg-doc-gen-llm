@@ -1,0 +1,11 @@
+name: llm-apis-tests
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - flask
+  - chromadb
+  - psycopg2          # remova se não usar Postgres
+  - pip:
+      - sentence-transformers
+      - google-generativeai
