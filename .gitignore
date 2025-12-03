@@ -134,3 +134,7 @@ testes-apis/**/.venv/
 outputs/summary.csv
 RoslynIndexer/setup_comandos.txt
 RoslynIndexer/src/RoslynIndexer.Console/output_json/*
+projeto-ufg/*
+arquitetura/*
+chatbot/*
+sad/*
