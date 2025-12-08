@@ -37,6 +37,9 @@ pip install chromadb==0.4.22
 
 # 4. Instalar Sentence Transformers (último para evitar conflitos)
 pip install sentence-transformers==2.2.2
+
+# 5. Fix de compatibilidade do huggingface
+pip install "huggingface-hub<0.20.0"
 ```
 
 ### 4. Verificar instalação
@@ -96,6 +99,7 @@ pip install langchain==0.1.0
 pip install langchain-openai==0.0.2
 pip install chromadb==0.4.22
 pip install sentence-transformers==2.2.2
+pip install "huggingface-hub<0.20.0"
 ```
 
 ## 🔄 Pipeline de normalização e inserção no ChromaDB

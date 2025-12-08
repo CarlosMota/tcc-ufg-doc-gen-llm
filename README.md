@@ -4,6 +4,8 @@ Estas instruções preparam o ambiente base (WSL e VS Code). Para detalhes de ca
 
 - Subprojeto Python para testes de APIs LLM: `llm-apis-playground/README.md`
 - Indexer em C#/.NET: `Indexer/RoslynIndexer/README.md`
+- Processador de documentação e vetor: `documentation-processor/README.md`
+- API RAG (FastAPI): `api/README.md`
 
 ## Requisitos básicos
 
@@ -34,3 +36,13 @@ wsl -l -v
 3. Passe o mouse sobre `Ubuntu-22.04` e clique em “Connect to WSL in New Window”.
 
 Dica: a aba Remote Explorer mostra pastas recentes do WSL para reabrir projetos rapidamente.
+
+## Ordem recomendada para rodar os projetos
+
+1) **Indexer (.NET)**: gerar os JSONs de parser em `data/01-parser/` (ver `Indexer/RoslynIndexer/README.md`).
+2) **Documentation Processor (Python)**: normalizar e popular o Chroma em `data/03-vector-store/` (ver `documentation-processor/README.md`).
+3) **API RAG (FastAPI)**: subir a API que consulta o vetor (ver `api/README.md`).
+
+Links diretos:
+- Documentation Processor: `documentation-processor/README.md`
+- API RAG: `api/README.md`
