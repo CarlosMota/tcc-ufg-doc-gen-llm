@@ -141,3 +141,5 @@ sad/*
 Indexer/RoslynIndexer/old/*
 Indexer/RoslynIndexer/setup_comandos.txt
 data/01-parser/*
+data/02-normalization/*
+data/03-vector-store/*

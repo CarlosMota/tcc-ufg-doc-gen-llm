@@ -1,0 +1,15 @@
+name: documentation-processor
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - pydantic
+  - pyyaml
+  - python-dotenv
+  - requests
+  - httpx
+  - aiofiles
+  - tiktoken
