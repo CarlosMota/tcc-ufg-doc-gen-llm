@@ -2,7 +2,7 @@
 
 Estas instruções preparam o ambiente base (WSL e VS Code). Para detalhes de cada subprojeto, consulte os READMEs nas respectivas pastas.
 
-- Subprojeto Python para testes de APIs LLM: `llm-apis-playground/README.md`
+- Subprojeto Python para testes de APIs LLM (opcional / playground): `llm-apis-playground/README.md`
 - Indexer em C#/.NET: `Indexer/RoslynIndexer/README.md`
 - Processador de documentação e vetor: `documentation-processor/README.md`
 - API RAG (FastAPI): `api/README.md`
@@ -44,5 +44,6 @@ Dica: a aba Remote Explorer mostra pastas recentes do WSL para reabrir projetos 
 3) **API RAG (FastAPI)**: subir a API que consulta o vetor (ver `api/README.md`).
 
 Links diretos:
-- Documentation Processor: `documentation-processor/README.md`
-- API RAG: `api/README.md`
+- Parser RoslynIndexer: [RoslynIndexer/README.md](https://github.com/CarlosMota/tcc-ufg-doc-gen-llm/blob/develop/Indexer/RoslynIndexer/README.md)
+- Documentation Processor: [documentation-processor/README.md](https://github.com/CarlosMota/tcc-ufg-doc-gen-llm/blob/develop/documentation-processor/README.md)
+- API RAG: [api/README.md](https://github.com/CarlosMota/tcc-ufg-doc-gen-llm/blob/develop/api/README.md)
