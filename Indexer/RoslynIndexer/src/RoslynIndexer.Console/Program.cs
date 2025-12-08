@@ -20,12 +20,14 @@ class Program
             /// </summary>
             public class CalculadoraImposto
             {
+                private const decimal AliquotaPadraoIcms = 0.18m;
+
                 /// <summary>
                 /// Calcula o ICMS base.
                 /// </summary>
                 public decimal CalcularICMS(decimal valor, string estado)
                 {
-                    return valor * 0.18m;
+                    return valor * AliquotaPadraoIcms;
                 }
 
                 public void MetodoSemDoc() 

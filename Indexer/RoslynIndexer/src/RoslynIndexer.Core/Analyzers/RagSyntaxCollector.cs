@@ -14,6 +14,8 @@ namespace RoslynIndexer.Core.Analyzers
         private string _currentNamespace = "Global";
         private string _currentClass = "Unknown";
         private string _currentClassDocumentation = "";
+        private List<string> _currentClassConstants = new List<string>();
+        private List<string> _currentClassReadonlyFields = new List<string>();
         private readonly string _filePath;
 
         public RagSyntaxCollector(string filePath)
@@ -41,14 +43,52 @@ namespace RoslynIndexer.Core.Analyzers
         {
             var previousClass = _currentClass;
             var previousClassDoc = _currentClassDocumentation;
+            var previousConstants = _currentClassConstants;
+            var previousReadonly = _currentClassReadonlyFields;
 
             _currentClass = node.Identifier.Text;
             _currentClassDocumentation = GetXmlDocs(node);
+            _currentClassConstants = new List<string>();
+            _currentClassReadonlyFields = new List<string>();
 
             base.VisitClassDeclaration(node);
 
             _currentClass = previousClass;
             _currentClassDocumentation = previousClassDoc;
+            _currentClassConstants = previousConstants;
+            _currentClassReadonlyFields = previousReadonly;
+        }
+
+        public override void VisitFieldDeclaration(FieldDeclarationSyntax node)
+        {
+            var hasConst = node.Modifiers.Any(SyntaxKind.ConstKeyword);
+            var hasReadonly = node.Modifiers.Any(SyntaxKind.ReadOnlyKeyword);
+
+            if (hasConst || hasReadonly)
+            {
+                foreach (var variable in node.Declaration.Variables)
+                {
+                    var modifierText = string.Join(" ", node.Modifiers.Select(m => m.Text));
+                    var declarationText = $"{modifierText} {node.Declaration.Type} {variable.Identifier.Text}".Trim();
+
+                    if (variable.Initializer is not null)
+                    {
+                        declarationText += $" = {variable.Initializer.Value}";
+                    }
+
+                    if (hasConst)
+                    {
+                        _currentClassConstants.Add(declarationText);
+                    }
+
+                    if (hasReadonly)
+                    {
+                        _currentClassReadonlyFields.Add(declarationText);
+                    }
+                }
+            }
+
+            base.VisitFieldDeclaration(node);
         }
 
         public override void VisitMethodDeclaration(MethodDeclarationSyntax node)
@@ -72,6 +112,8 @@ namespace RoslynIndexer.Core.Analyzers
                 MethodName = node.Identifier.Text,
                 
                 Signature = $"{node.ReturnType} {node.Identifier.Text}{node.ParameterList}",
+                ConstantsInScope = _currentClassConstants.ToList(),
+                ReadonlyFieldsInScope = _currentClassReadonlyFields.ToList(),
                 
                 // Agora usamos o cleanNode para gerar o conteúdo sem o XML repetido
                 Content = finalContent, 

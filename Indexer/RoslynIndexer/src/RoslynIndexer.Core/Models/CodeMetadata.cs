@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -32,6 +33,12 @@ namespace RoslynIndexer.Core.Models
 
         [JsonPropertyName("class_xml_docs")]
         public string ClassXmlDocumentation { get; set; } = string.Empty;
+
+        [JsonPropertyName("constants_in_scope")]
+        public List<string> ConstantsInScope { get; set; } = new();
+
+        [JsonPropertyName("readonly_fields_in_scope")]
+        public List<string> ReadonlyFieldsInScope { get; set; } = new();
 
         // O FullContext geralmente não precisa ser serializado se for apenas computado, 
         // mas pode ser útil para debug ou busca direta.
