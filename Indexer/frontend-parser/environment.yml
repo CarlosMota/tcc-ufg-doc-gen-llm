@@ -1,0 +1,9 @@
+name: frontend-parser
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - tree-sitter==0.21.1
+      - tree-sitter-languages==1.10.2

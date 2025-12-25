@@ -16,11 +16,22 @@ namespace RoslynIndexer.Core.Analyzers
         private string _currentClassDocumentation = "";
         private List<string> _currentClassConstants = new List<string>();
         private List<string> _currentClassReadonlyFields = new List<string>();
+        private HashSet<string> _imports = new HashSet<string>();
         private readonly string _filePath;
 
         public RagSyntaxCollector(string filePath)
         {
             _filePath = filePath;
+        }
+
+        public override void VisitCompilationUnit(CompilationUnitSyntax node)
+        {
+            foreach (var usingDirective in node.Usings)
+            {
+                var text = usingDirective.ToString().Trim();
+                _imports.Add(text);
+            }
+            base.VisitCompilationUnit(node);
         }
 
         public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
@@ -118,8 +129,9 @@ namespace RoslynIndexer.Core.Analyzers
                 // Agora usamos o cleanNode para gerar o conteúdo sem o XML repetido
                 Content = finalContent, 
                 ContentLength = finalContent.Length,
-                MethodXmlDocumentation = GetXmlDocs(node),
-                ClassXmlDocumentation = _currentClassDocumentation
+                MethodDocumentation = GetXmlDocs(node),
+                ClassDocumentation = _currentClassDocumentation,
+                Imports = _imports.ToList()
             };
 
             ExtractedMetadata.Add(metadata);

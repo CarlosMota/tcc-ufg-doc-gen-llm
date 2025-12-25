@@ -15,10 +15,13 @@ KNOWN_FIELDS = {
     "signature",
     "content_length",
     "content",
-    "method_xml_docs",
-    "class_xml_docs",
+    "method_docs",
+    "class_docs",
+    "method_xml_docs",  # legado
+    "class_xml_docs",  # legado
     "constants_in_scope",
     "readonly_fields_in_scope",
+    "imports",
     "full_context",
 }
 
@@ -54,6 +57,8 @@ def normalize_record(record: ParserRecord) -> NormalizedDocument:
     full_context = payload.get("full_context") or _compose_full_context(payload)
     signature = payload.get("signature")
     content = payload.get("content") or ""
+    method_docs = payload.get("method_docs") or payload.get("method_xml_docs") or ""
+    class_docs = payload.get("class_docs") or payload.get("class_xml_docs") or ""
 
     doc_id = _build_document_id(
         parser_name=record.parser_name,
@@ -65,14 +70,16 @@ def normalize_record(record: ParserRecord) -> NormalizedDocument:
     extra_metadata = {k: v for k, v in payload.items() if k not in KNOWN_FIELDS}
     constants = payload.get("constants_in_scope") or []
     readonlys = payload.get("readonly_fields_in_scope") or []
+    imports = payload.get("imports") or []
 
     embedding_text = _build_embedding_text(
-        class_xml_docs=payload.get("class_xml_docs") or "",
-        method_xml_docs=payload.get("method_xml_docs") or "",
+        class_docs=class_docs,
+        method_docs=method_docs,
         signature=signature or "",
         content=content,
         constants=constants,
         readonlys=readonlys,
+        imports=imports,
     )
 
     return NormalizedDocument(
@@ -86,10 +93,11 @@ def normalize_record(record: ParserRecord) -> NormalizedDocument:
         signature=signature,
         full_context=full_context,
         content=content,
-        method_xml_docs=payload.get("method_xml_docs"),
-        class_xml_docs=payload.get("class_xml_docs"),
+        method_docs=method_docs or None,
+        class_docs=class_docs or None,
         constants_in_scope=list(constants),
         readonly_fields_in_scope=list(readonlys),
+        imports=list(imports),
         embedding_text=embedding_text,
         metadata=extra_metadata,
     )
@@ -135,16 +143,17 @@ def _build_document_id(
 
 
 def _build_embedding_text(
-    class_xml_docs: str,
-    method_xml_docs: str,
+    class_docs: str,
+    method_docs: str,
     signature: str,
     content: str,
     constants: list[str],
     readonlys: list[str],
+    imports: list[str],
 ) -> str:
     sections = [
-        ("Class doc", class_xml_docs),
-        ("Method doc", method_xml_docs),
+        ("Class doc", class_docs),
+        ("Method doc", method_docs),
         ("Signature", signature),
         ("Code", content),
     ]
@@ -153,6 +162,8 @@ def _build_embedding_text(
         sections.append(("Constants", "\n".join(constants)))
     if readonlys:
         sections.append(("Readonly fields", "\n".join(readonlys)))
+    if imports:
+        sections.append(("Imports", "\n".join(imports)))
 
     formatted = []
     for title, value in sections:
@@ -165,4 +176,3 @@ def _sanitize_filename(value: str) -> str:
     invalid_chars = '<>:"/\\|?*\n\r\t'
     sanitized = "".join("_" if ch in invalid_chars else ch for ch in value)
     return sanitized.replace(" ", "_")[:200]
-

@@ -27,18 +27,20 @@ namespace RoslynIndexer.Core.Models
         [JsonPropertyName("content")]
         public string Content { get; set; } = string.Empty;
         
-        // Propriedades separadas conforme sua alteração
-        [JsonPropertyName("method_xml_docs")]
-        public string MethodXmlDocumentation { get; set; } = string.Empty;
+        [JsonPropertyName("method_docs")]
+        public string MethodDocumentation { get; set; } = string.Empty;
 
-        [JsonPropertyName("class_xml_docs")]
-        public string ClassXmlDocumentation { get; set; } = string.Empty;
+        [JsonPropertyName("class_docs")]
+        public string ClassDocumentation { get; set; } = string.Empty;
 
         [JsonPropertyName("constants_in_scope")]
         public List<string> ConstantsInScope { get; set; } = new();
 
         [JsonPropertyName("readonly_fields_in_scope")]
         public List<string> ReadonlyFieldsInScope { get; set; } = new();
+
+        [JsonPropertyName("imports")]
+        public List<string> Imports { get; set; } = new();
 
         // O FullContext geralmente não precisa ser serializado se for apenas computado, 
         // mas pode ser útil para debug ou busca direta.
