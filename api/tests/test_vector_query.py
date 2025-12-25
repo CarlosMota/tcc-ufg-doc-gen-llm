@@ -3,9 +3,10 @@ from typing import List
 
 import pytest
 
-from app.application.services import QueryService
-from app.domain.models import DocumentHit, QueryInput, QueryResult
-from app.domain.repositories import MessageBus, VectorRepository
+from app.domain import MessageBus
+from app.domain.search.models import DocumentHit, QueryInput, QueryResult
+from app.domain.search.repositories import VectorRepository
+from app.domain.search.service import MessageBusQueryNotifier, QueryService
 
 
 class FakeVectorRepository(VectorRepository):
@@ -33,7 +34,8 @@ def test_query_service_returns_hits_and_publishes_event():
     ]
     repo = FakeVectorRepository(hits)
     bus = DummyMessageBus()
-    service = QueryService(repository=repo, message_bus=bus)
+    notifier = MessageBusQueryNotifier(message_bus=bus)
+    service = QueryService(repository=repo, notifier=notifier)
 
     query_input = QueryInput(text="icms", top_k=2, namespace="SistemaFinanceiro.Domain")
     result = service.search(query_input)
@@ -47,4 +49,3 @@ def test_query_input_builds_filters():
     query_input = QueryInput(text="icms", parser="roslyn", namespace="ns")
     filters = query_input.filters()
     assert filters == {"namespace": "ns", "parser": "roslyn"}
-

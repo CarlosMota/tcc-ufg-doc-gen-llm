@@ -35,8 +35,8 @@ pytest
 - `app/config.py`: configuração (paths, coleção Chroma, modelo de embedding).
 - `app/domain`: entidades e contratos (repositório vetorial, mensagens de domínio).
 - `app/application/services.py`: orquestra casos de uso de consulta.
-- `app/infrastructure/vector_repository.py`: implementação para Chroma (data/03-vector-store).
-- `app/infrastructure/messaging.py`: barramento simples (logging) e contrato para mensageria.
+- `app/infrastructure/vector_store/`: implementação para Chroma (data/03-vector-store).
+- `app/infrastructure/messaging/`: barramento simples (logging) e contrato para mensageria.
 - `app/interfaces/api.py`: endpoints FastAPI.
 - `tests/`: testes unitários da aplicação.
 

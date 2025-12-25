@@ -3,8 +3,8 @@ from typing import Optional
 
 import aio_pika
 
-from .. import config
-from ..domain.repositories import MessageBus
+from ... import config
+from ...domain import MessageBus
 
 
 class LoggingMessageBus(MessageBus):
@@ -40,4 +40,3 @@ class RabbitMQMessageBus(MessageBus):
                 aio_pika.Message(body=body),
                 routing_key=queue.name,
             )
-

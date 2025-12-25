@@ -11,3 +11,7 @@ dependencies:
   - httpx
   - pytest
   - pytest-asyncio
+  - libstdcxx-ng>=13
+  - libgcc-ng>=13
+  - icu
+  - sqlite
