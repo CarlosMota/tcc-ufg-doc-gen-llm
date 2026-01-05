@@ -4,7 +4,7 @@ Estas instruções preparam o ambiente base (WSL e VS Code). Para detalhes de ca
 
 - Subprojeto Python para testes de APIs LLM (opcional / playground): `llm-apis-playground/README.md`
 - Indexer em C#/.NET: `Indexer/RoslynIndexer/README.md`
-- Processador de documentação e vetor: `documentation-processor/README.md`
+- Processador de documentação e banco vetorial: `documentation-processor/README.md`
 - API RAG (FastAPI): `api/README.md`
 
 ## Requisitos básicos

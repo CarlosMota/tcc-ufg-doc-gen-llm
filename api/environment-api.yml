@@ -11,6 +11,8 @@ dependencies:
   - httpx
   - pytest
   - pytest-asyncio
+  - pip:
+      - groq
   - libstdcxx-ng>=13
   - libgcc-ng>=13
   - icu
